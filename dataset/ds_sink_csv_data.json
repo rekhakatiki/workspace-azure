@@ -1,5 +1,5 @@
 {
-	"name": "ds_src_csv_data",
+	"name": "ds_sink_csv_data",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_src_csv_data",
@@ -10,8 +10,11 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "emplyee datalist.csv",
-				"fileSystem": "demo"
+				"folderPath": {
+					"value": "@concat('employee_data','/',utcNow())",
+					"type": "Expression"
+				},
+				"fileSystem": "landing"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

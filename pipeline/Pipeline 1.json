@@ -103,6 +103,10 @@
 			"filepath": {
 				"type": "string",
 				"defaultValue": "emp"
+			},
+			"filename": {
+				"type": "string",
+				"defaultValue": "emp"
 			}
 		},
 		"annotations": []

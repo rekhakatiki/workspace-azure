@@ -29,7 +29,13 @@
 					},
 					"dataset": {
 						"referenceName": "ds_src_csv_data",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filename": {
+								"value": "@activity('Lookup1').output.firstRow.filename",
+								"type": "Expression"
+							}
+						}
 					}
 				}
 			}

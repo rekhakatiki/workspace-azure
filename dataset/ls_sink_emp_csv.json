@@ -1,0 +1,21 @@
+{
+	"name": "ls_sink_emp_csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_src_csv_data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

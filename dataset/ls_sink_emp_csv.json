@@ -16,8 +16,11 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "employedata.csv",
-				"folderPath": "landing"
+				"folderPath": {
+					"value": "@concat('employee_data')",
+					"type": "Expression"
+				},
+				"fileSystem": "landing"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

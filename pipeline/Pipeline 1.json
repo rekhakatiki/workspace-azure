@@ -94,7 +94,10 @@
 				"outputs": [
 					{
 						"referenceName": "ls_sink_emp_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filepath": "emp"
+						}
 					}
 				]
 			}

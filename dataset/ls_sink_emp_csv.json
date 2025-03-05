@@ -16,10 +16,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"folderPath": {
-					"value": "@('employee_data')",
-					"type": "Expression"
-				}
+				"fileName": "employedata.csv",
+				"folderPath": "landing"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

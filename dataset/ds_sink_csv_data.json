@@ -5,13 +5,25 @@
 			"referenceName": "ls_src_csv_data",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"filepath": {
+				"type": "String"
+			},
+			"filename": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filepath",
+					"type": "Expression"
+				},
 				"folderPath": {
-					"value": "@concat('employee_data','/',utcNow())",
+					"value": "@dataset().filepath",
 					"type": "Expression"
 				},
 				"fileSystem": "landing"

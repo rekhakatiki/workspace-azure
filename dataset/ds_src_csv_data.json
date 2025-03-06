@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "emplyee datalist.csv",
+				"folderPath": "test",
 				"fileSystem": "demo"
 			},
 			"columnDelimiter": ",",

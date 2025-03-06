@@ -49,6 +49,7 @@
 						"value": "@activity('Get_Metadata_demo').output.childItems",
 						"type": "Expression"
 					},
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "Copy data",

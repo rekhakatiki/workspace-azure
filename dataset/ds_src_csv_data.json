@@ -2,7 +2,7 @@
 	"name": "ds_src_csv_data",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_src_csv_data",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
@@ -20,7 +20,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "employeedatalist.csv",
+				"fileName": "homes.csv",
 				"fileSystem": "demo"
 			},
 			"columnDelimiter": ",",

@@ -9,6 +9,9 @@
 			"filepath": {
 				"type": "string",
 				"defaultValue": "emp"
+			},
+			"filename": {
+				"type": "String"
 			}
 		},
 		"annotations": [],
@@ -16,8 +19,12 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
 				"folderPath": {
-					"value": "@concat('employee_data')",
+					"value": "@dataset().filepath",
 					"type": "Expression"
 				},
 				"fileSystem": "landing"

@@ -3,44 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "lkp_emp_data_csv",
-				"description": "",
-				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "Copy data1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.00:30:00",
-					"retry": 1,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
-					"dataset": {
-						"referenceName": "ds_src_csv_data",
-						"type": "DatasetReference"
-					}
-				}
-			},
-			{
 				"name": "Copy data1",
 				"type": "Copy",
 				"dependsOn": [],
@@ -90,8 +52,8 @@
 						"referenceName": "ds_src_csv_data",
 						"type": "DatasetReference",
 						"parameters": {
-							"filepath": "emp",
-							"filename": "emp"
+							"filepath": "demo",
+							"filename": "homes"
 						}
 					}
 				],
@@ -100,7 +62,8 @@
 						"referenceName": "ls_sink_emp_csv",
 						"type": "DatasetReference",
 						"parameters": {
-							"filepath": "emp"
+							"filepath": "demo",
+							"filename": "homes"
 						}
 					}
 				]

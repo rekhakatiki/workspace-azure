@@ -1,0 +1,38 @@
+{
+	"name": "ds_sink_rest_bronze_Parquet1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_src_csv_data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "country_data.parquet",
+				"folderPath": "rest",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "NAME",
+				"type": "UTF8"
+			},
+			{
+				"name": "SALARY",
+				"type": "UTF8"
+			},
+			{
+				"name": "DEPARTMENT",
+				"type": "UTF8"
+			}
+		]
+	}
+}

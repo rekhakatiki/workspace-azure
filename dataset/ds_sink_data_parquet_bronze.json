@@ -1,0 +1,19 @@
+{
+	"name": "ds_sink_data_parquet_bronze",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_src_csv_data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "bronze"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

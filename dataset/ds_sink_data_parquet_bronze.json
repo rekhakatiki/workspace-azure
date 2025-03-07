@@ -10,6 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "users_data.parquet",
+				"folderPath": "rest_api",
 				"fileSystem": "bronze"
 			},
 			"compressionCodec": "snappy"

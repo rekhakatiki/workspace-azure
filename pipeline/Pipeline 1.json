@@ -69,14 +69,17 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ds_src_cities_csv",
+									"referenceName": "ds_src_homes_csv",
 									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "ds_sink_cities_csv",
-									"type": "DatasetReference"
+									"referenceName": "ds_src_csv_data",
+									"type": "DatasetReference",
+									"parameters": {
+										"filepath": "item"
+									}
 								}
 							]
 						},
@@ -162,11 +165,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_sink_cities_csv",
+						"referenceName": "ds_src_homes_csv",
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"childItems"
+						"itemName",
+						"columnCount"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",

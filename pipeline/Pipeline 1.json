@@ -69,17 +69,14 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ds_src_homes_csv",
+									"referenceName": "ds_src_cities_csv",
 									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "ds_src_csv_data",
-									"type": "DatasetReference",
-									"parameters": {
-										"filepath": "item"
-									}
+									"referenceName": "ds_sink_cities_csv",
+									"type": "DatasetReference"
 								}
 							]
 						},
@@ -165,7 +162,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_src_homes_csv",
+						"referenceName": "ds_src_cities_csv",
 						"type": "DatasetReference"
 					},
 					"fieldList": [

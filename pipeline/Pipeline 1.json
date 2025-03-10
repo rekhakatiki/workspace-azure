@@ -112,12 +112,14 @@
 									}
 								},
 								"sink": {
-									"type": "ParquetSink",
+									"type": "DelimitedTextSink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
-										"type": "ParquetWriteSettings"
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
 									}
 								},
 								"enableStaging": false,
@@ -138,7 +140,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "ls_sink_cities_Parquet",
+									"referenceName": "ds_sink_cities_bronze_csv",
 									"type": "DatasetReference"
 								}
 							]

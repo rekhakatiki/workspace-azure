@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "country_data.parquet",
-				"folderPath": "rest",
+				"fileName": "cities.parquet",
 				"fileSystem": "bronze"
 			},
 			"compressionCodec": "snappy"

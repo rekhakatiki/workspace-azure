@@ -7,7 +7,7 @@
 				"type": "GetMetadata",
 				"dependsOn": [
 					{
-						"activity": "lp_layoutconfig",
+						"activity": "lkp_layoutconfig",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -54,7 +54,7 @@
 				}
 			},
 			{
-				"name": "lp_layoutconfig",
+				"name": "lkp_layoutconfig",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {

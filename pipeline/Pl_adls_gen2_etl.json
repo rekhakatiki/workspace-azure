@@ -1,5 +1,5 @@
 {
-	"name": "Pl_cities_target",
+	"name": "Pl_adls_gen2_etl",
 	"properties": {
 		"activities": [
 			{

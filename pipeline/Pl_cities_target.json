@@ -1,5 +1,5 @@
 {
-	"name": "Pl_citiessrc_target",
+	"name": "Pl_cities_target",
 	"properties": {
 		"activities": [
 			{
@@ -45,6 +45,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {

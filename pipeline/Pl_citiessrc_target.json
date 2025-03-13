@@ -177,7 +177,7 @@
 											"type": "Expression"
 										},
 										"filepath": {
-											"value": "@concat(item().name,'/', formatDateTime(utcNow(), 'dd-MM-yyyy'))",
+											"value": "@activity('lp_layoutconfig').output.firstRow.landing_filepath",
 											"type": "Expression"
 										},
 										"filename": {

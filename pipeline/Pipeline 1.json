@@ -94,7 +94,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_sink_cities_csv",
+						"referenceName": "ds_src_cities_csv",
 						"type": "DatasetReference"
 					}
 				]
@@ -131,12 +131,14 @@
 						}
 					},
 					"sink": {
-						"type": "ParquetSink",
+						"type": "DelimitedTextSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "ParquetWriteSettings"
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
 						}
 					},
 					"enableStaging": false,
@@ -151,13 +153,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_sink_cities_csv",
+						"referenceName": "ds_src_cities_csv",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_sink_rest_bronze_Parquet1",
+						"referenceName": "ds_src_cities_csv",
 						"type": "DatasetReference"
 					}
 				]

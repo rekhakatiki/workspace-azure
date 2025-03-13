@@ -24,11 +24,26 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "ds_src_csv_data",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filepath": {
+								"value": "@activity('lkp_config_csv').output.firstRow.demo_filepath",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@activity('lkp_config_csv').output.firstRow.demo_filename",
+								"type": "Expression"
+							},
+							"container": {
+								"value": "@activity('lkp_config_csv').output.firstRow.container",
+								"type": "Expression"
+							}
+						}
 					},
 					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -37,7 +52,7 @@
 				}
 			},
 			{
-				"name": "ForEach1",
+				"name": "ForEach",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -107,11 +122,15 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"filepath": {
-											"value": "test",
+											"value": "@activity('lkp_config_csv').output.firstRow.demo_filepath",
 											"type": "Expression"
 										},
 										"filename": {
 											"value": "@item().name",
+											"type": "Expression"
+										},
+										"container": {
+											"value": "@activity('lkp_config_csv').output.firstRow.container",
 											"type": "Expression"
 										}
 									}
@@ -128,6 +147,10 @@
 										},
 										"filename": {
 											"value": "@concat(item().name,'.csv')",
+											"type": "Expression"
+										},
+										"container": {
+											"value": "@activity('lkp_config_csv').output.firstRow.landing_container",
 											"type": "Expression"
 										}
 									}
@@ -191,14 +214,32 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"filepath": "@concat(item().name,'/', formatDateTime(utcNow(), 'dd-MM-yyyy'))",
-										"filename": "@concat(item().name,'.csv')"
+										"filename": "@concat(item().name,'.csv')",
+										"container": {
+											"value": "@activity('lkp_config_csv').output.firstRow.landing_container",
+											"type": "Expression"
+										}
 									}
 								}
 							],
 							"outputs": [
 								{
 									"referenceName": "ds_sink_data_parquet_bronze",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@activity('lkp_config_csv').output.firstRow.bronze_container",
+											"type": "Expression"
+										},
+										"filepath": {
+											"value": "@activity('lkp_config_csv').output.firstRow.bronze_filepath",
+											"type": "Expression"
+										},
+										"filename": {
+											"value": "@activity('lkp_config_csv').output.firstRow.bronze_filename",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
@@ -234,7 +275,8 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"filepath": "config/",
-							"filename": "config.csv"
+							"filename": "config.csv",
+							"container": "config"
 						}
 					}
 				}

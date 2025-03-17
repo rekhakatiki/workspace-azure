@@ -1,0 +1,16 @@
+{
+	"name": "ds_dev_sql",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dev_sql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "tbl_layout"
+		}
+	}
+}

@@ -281,6 +281,54 @@
 									}
 								}
 							]
+						},
+						{
+							"name": "bronze_to_silver",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "landing_to_bronze",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_source_csv",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@activity('lp_layoutconfig').output.firstRow.bronze_container",
+											"type": "Expression"
+										},
+										"filepath": "@activity('lp_layoutconfig').output.firstRow.bronze_filepath",
+										"filename": "@activity('lp_layoutconfig').output.firstRow.bronze_filename"
+									}
+								}
+							]
 						}
 					]
 				}

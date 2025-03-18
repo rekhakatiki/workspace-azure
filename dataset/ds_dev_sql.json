@@ -2,7 +2,7 @@
 	"name": "ds_dev_sql",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ds_dev_sql",
+			"referenceName": "ls_dev_sql",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "tbl_homes"
+			"table": "tbl_layout"
 		}
 	}
 }

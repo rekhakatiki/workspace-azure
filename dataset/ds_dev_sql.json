@@ -1,0 +1,33 @@
+{
+	"name": "ds_dev_sql",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ds_dev_sql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SALARY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DEPARTMENT",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "tbl_layout"
+		}
+	}
+}

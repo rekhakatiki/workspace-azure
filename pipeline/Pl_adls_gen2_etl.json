@@ -353,11 +353,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"layout": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }

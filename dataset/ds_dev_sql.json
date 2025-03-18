@@ -27,7 +27,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "tbl_layout"
+			"table": "tbl_homes"
 		}
 	}
 }

@@ -306,7 +306,7 @@
 									"type": "DelimitedTextSource",
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
-										"fileListPath": "bronze/layout/cities (1).csv.csv",
+										"recursive": true,
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {

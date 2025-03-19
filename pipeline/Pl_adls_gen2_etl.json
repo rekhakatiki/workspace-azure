@@ -262,7 +262,15 @@
 							"outputs": [
 								{
 									"referenceName": "ds_source_Parquet1",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"container": "@activity('lp_layoutconfig').output.firstRow.bronze_container",
+										"filepath": {
+											"value": "@activity('lp_layoutconfig').output.firstRow.bronze_filepath",
+											"type": "Expression"
+										},
+										"filename": "@activity('lp_layoutconfig').output.firstRow.bronze_filename"
+									}
 								}
 							]
 						},
@@ -287,14 +295,14 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "DelimitedTextSource",
+									"type": "ParquetSource",
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
+										"type": "ParquetReadSettings"
 									}
 								},
 								"sink": {
@@ -316,15 +324,21 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ds_source_csv",
+									"referenceName": "ds_source_Parquet1",
 									"type": "DatasetReference",
 									"parameters": {
 										"container": {
 											"value": "@activity('lp_layoutconfig').output.firstRow.bronze_container",
 											"type": "Expression"
 										},
-										"filepath": "@activity('lp_layoutconfig').output.firstRow.bronze_filepath",
-										"filename": "@activity('lp_layoutconfig').output.firstRow.bronze_filename"
+										"filepath": {
+											"value": "@activity('lp_layoutconfig').output.firstRow.bronze_filepath",
+											"type": "Expression"
+										},
+										"filename": {
+											"value": "@activity('lp_layoutconfig').output.firstRow.bronze_filename",
+											"type": "Expression"
+										}
 									}
 								}
 							],

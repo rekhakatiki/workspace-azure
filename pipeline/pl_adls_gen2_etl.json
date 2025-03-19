@@ -307,7 +307,13 @@
 							"outputs": [
 								{
 									"referenceName": "ds_dev_sql",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"tablename": {
+											"value": "@replace(activity('lkp_config_csv').output.firstRow.filename,'.parquet','')",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}

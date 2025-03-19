@@ -5,12 +5,20 @@
 			"referenceName": "ls_dev_sql",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"tablename": {
+				"type": "String"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "tbl_data"
+			"table": {
+				"value": "@concat('tbl_',dataset().tablename)",
+				"type": "Expression"
+			}
 		}
 	}
 }

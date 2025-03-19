@@ -310,7 +310,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"tablename": {
-											"value": "@replace(activity('lkp_config_csv').output.firstRow.filename,'.parquet','')",
+											"value": "@replace(activity('lkp_config_csv').output.firstRow.bronze_filename,'.parquet','')",
 											"type": "Expression"
 										}
 									}

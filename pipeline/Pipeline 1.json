@@ -3,9 +3,16 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
+				"name": "Get Metadata",
 				"type": "GetMetadata",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "lkp_address",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.00:30:00",
 					"retry": 0,
@@ -16,16 +23,28 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "ds_src_cities_csv",
-						"type": "DatasetReference"
+						"referenceName": "ds_source_data",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": {
+								"value": "@activity('lkp_address').output.firstRow.container",
+								"type": "Expression"
+							},
+							"filepath": {
+								"value": "@activity('lkp_address').output.firstRow.dir1",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@activity('lkp_address').output.firstRow.demo_filename1",
+								"type": "Expression"
+							}
+						}
 					},
 					"fieldList": [
-						"itemName",
-						"columnCount"
+						"childItems"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -34,16 +53,9 @@
 				}
 			},
 			{
-				"name": "raw_to_landing",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "Get Metadata1",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"name": "lkp_address",
+				"type": "Lookup",
+				"dependsOn": [],
 				"policy": {
 					"timeout": "0.00:30:00",
 					"retry": 0,
@@ -64,107 +76,281 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
-					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings",
-							"copyBehavior": "PreserveHierarchy"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
+					"dataset": {
+						"referenceName": "ds_source_data",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "layout",
+							"filepath": "layout/",
+							"filename": "layoutconfig.csv"
 						}
 					}
-				},
-				"inputs": [
-					{
-						"referenceName": "ds_src_cities_csv",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "ds_src_cities_csv",
-						"type": "DatasetReference"
-					}
-				]
+				}
 			},
 			{
-				"name": "landing_to_bronze",
-				"type": "Copy",
+				"name": "ForEach1",
+				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "raw_to_landing",
+						"activity": "Get Metadata",
 						"dependencyConditions": [
 							"Succeeded"
 						]
 					}
 				],
-				"policy": {
-					"timeout": "0.00:30:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
+					"items": {
+						"value": "@activity('Get Metadata').output.childItems",
+						"type": "Expression"
 					},
-					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
+					"activities": [
+						{
+							"name": "raw_to_landing",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.00:30:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_source_data",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@activity('lkp_address').output.firstRow.container",
+											"type": "Expression"
+										},
+										"filepath": {
+											"value": "@activity('lkp_address').output.firstRow.dir1",
+											"type": "Expression"
+										},
+										"filename": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_source_data",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": "@activity('lkp_address').output.firstRow.landing_container",
+										"filepath": "@activity('lkp_address').output.firstRow.landing_filepath1",
+										"filename": {
+											"value": "@concat(item().name,'.csv')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
+						{
+							"name": "landing_to_bronze",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "raw_to_landing",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.00:30:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_source_data",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": "@activity('lkp_address').output.firstRow.landing_container",
+										"filepath": "@activity('lkp_address').output.firstRow.landing_filepath1",
+										"filename": {
+											"value": "@concat(item().name,'.csv')",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "users_address_Parquet",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": {
+											"value": "@activity('lkp_address').output.firstRow.bronze_container",
+											"type": "Expression"
+										},
+										"filepath": {
+											"value": "@activity('lkp_address').output.firstRow.bronze_filepath1",
+											"type": "Expression"
+										},
+										"filename": {
+											"value": "@activity('lkp_address').output.firstRow.bronze_filename2",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "bronze_to_silver",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "landing_to_bronze",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.00:30:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobFSReadSettings",
+										"recursive": true,
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "ds_source_data",
+									"type": "DatasetReference",
+									"parameters": {
+										"container": "@activity('lkp_address').output.firstRow.bronze_container",
+										"filepath": "@activity('lkp_address').output.firstRow.bronze_filepath1",
+										"filename": "@activity('lkp_address').output.firstRow.bronze_filename2"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "ds_dev_sql",
+									"type": "DatasetReference",
+									"parameters": {
+										"tablename": {
+											"value": "@replace(activity('lkp_address').output.firstRow.bronze_filename2,'.parquet','')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						}
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "ds_src_cities_csv",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "ds_src_cities_csv",
-						"type": "DatasetReference"
-					}
-				]
+					]
+				}
 			}
 		],
+		"parameters": {
+			"container": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }

@@ -45,6 +45,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
@@ -178,7 +179,7 @@
 										"container": "@activity('lkp_address').output.firstRow.landing_container",
 										"filepath": "@activity('lkp_address').output.firstRow.landing_filepath1",
 										"filename": {
-											"value": "@concat(item().name,'.csv')",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
@@ -243,7 +244,7 @@
 										"container": "@activity('lkp_address').output.firstRow.landing_container",
 										"filepath": "@activity('lkp_address').output.firstRow.landing_filepath1",
 										"filename": {
-											"value": "@concat(item().name,'.csv')",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
@@ -291,14 +292,14 @@
 							"userProperties": [],
 							"typeProperties": {
 								"source": {
-									"type": "DelimitedTextSource",
+									"type": "ParquetSource",
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
-										"type": "DelimitedTextReadSettings"
+										"type": "ParquetReadSettings"
 									}
 								},
 								"sink": {
@@ -320,10 +321,13 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "ds_source_data",
+									"referenceName": "users_address_Parquet",
 									"type": "DatasetReference",
 									"parameters": {
-										"container": "@activity('lkp_address').output.firstRow.bronze_container",
+										"container": {
+											"value": "@activity('lkp_address').output.firstRow.bronze_container",
+											"type": "Expression"
+										},
 										"filepath": "@activity('lkp_address').output.firstRow.bronze_filepath1",
 										"filename": "@activity('lkp_address').output.firstRow.bronze_filename2"
 									}
@@ -335,7 +339,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"tablename": {
-											"value": "@coalesce(activity('lkp_address').output.firstRow.bronze_filename2,'.parquet','')",
+											"value": "@replace(activity('lkp_address').output.firstRow.bronze_filename2,'.parquet','')",
 											"type": "Expression"
 										}
 									}

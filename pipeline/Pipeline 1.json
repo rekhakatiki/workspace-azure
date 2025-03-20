@@ -335,7 +335,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"tablename": {
-											"value": "@replace(activity('lkp_address').output.firstRow.bronze_filename2,'.parquet','')",
+											"value": "@coalesce(activity('lkp_address').output.firstRow.bronze_filename2,'.parquet','')",
 											"type": "Expression"
 										}
 									}
@@ -346,11 +346,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"container": {
-				"type": "String"
-			}
-		},
 		"annotations": []
 	}
 }

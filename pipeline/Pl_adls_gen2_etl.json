@@ -269,7 +269,10 @@
 											"value": "@activity('lp_layoutconfig').output.firstRow.bronze_filepath",
 											"type": "Expression"
 										},
-										"filename": "@activity('lp_layoutconfig').output.firstRow.bronze_filename"
+										"filename": {
+											"value": "@replace(activity('lp_layoutconfig').output.firstRow.bronze_filename,'.parquet','')",
+											"type": "Expression"
+										}
 									}
 								}
 							]

@@ -1,23 +1,23 @@
 {
-	"name": "ds_src_csv_data",
+	"name": "ds_sink_data_parquet_bronze",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_src_csv_data",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
+			"container": {
+				"type": "String"
+			},
 			"filepath": {
 				"type": "String"
 			},
 			"filename": {
-				"type": "String"
-			},
-			"container": {
 				"type": "string"
 			}
 		},
 		"annotations": [],
-		"type": "DelimitedText",
+		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
@@ -34,10 +34,7 @@
 					"type": "Expression"
 				}
 			},
-			"columnDelimiter": ",",
-			"escapeChar": "\\",
-			"firstRowAsHeader": true,
-			"quoteChar": "\""
+			"compressionCodec": "snappy"
 		},
 		"schema": []
 	}

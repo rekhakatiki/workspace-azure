@@ -1,5 +1,5 @@
 {
-	"name": "ds_src_csv_data",
+	"name": "ds_sink_csv_data",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_src_csv_data",
@@ -13,7 +13,7 @@
 				"type": "String"
 			},
 			"container": {
-				"type": "string"
+				"type": "String"
 			}
 		},
 		"annotations": [],
